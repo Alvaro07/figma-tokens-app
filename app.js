@@ -3,7 +3,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
-const port = 8000
 const FigmaTokens = require('./src/js/figma-tokens')
 
 app.use(bodyParser.json())
@@ -28,4 +27,4 @@ app.post('/tokens', (req, res) => {
 })
 
 // listen on the port
-app.listen(port)
+app.listen(process.env.PORT || 8080)
