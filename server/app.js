@@ -26,5 +26,6 @@ app.post('/tokens', (req, res) => {
   })
 })
 
+console.log(FigmaTokens)
 // listen on the port
 app.listen(process.env.PORT || 8080)
