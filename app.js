@@ -1,9 +1,9 @@
 // server/server.js
 const express = require('express')
-const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
+const port = 8000
 const FigmaTokens = require('./src/js/figma-tokens')
 
 app.use(bodyParser.json())
@@ -28,5 +28,4 @@ app.post('/tokens', (req, res) => {
 })
 
 // listen on the port
-module.exports = app
-module.exports.handler = serverless(app)
+app.listen(port)
