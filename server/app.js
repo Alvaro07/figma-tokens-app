@@ -1,9 +1,9 @@
 // server/server.js
 const express = require('express')
+const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
-const port = 8000
 const FigmaTokens = require('./src/js/figma-tokens')
 
 app.use(bodyParser.json())
@@ -15,7 +15,7 @@ app.get('/tokens', (req, res) => {
 })
 
 app.post('/tokens', (req, res) => {
-  const figmaStyles = new FigmaTokens(req.body.authToken, req.body.idFile)
+  const figmaStyles = new FigmaTokens(req.body.authToken, req.body.idFile, req.body.config)
   const finalTokens = {}
   figmaStyles.getTokens().then(data => {
     Object.entries(data.token).forEach(e => {
@@ -28,4 +28,5 @@ app.post('/tokens', (req, res) => {
 })
 
 // listen on the port
-app.listen(port)
+module.exports = app
+module.exports.handler = serverless(app)
