@@ -3,6 +3,7 @@
     @click="handleClick"
     class="transition duration-300 ease-in-out text-white font-bold my-1 py-4 border-b-4 rounded"
     :class="[disabled && disabledClasses, extraClass, typeClasses, sizeClass]"
+    :disabled="disabled"
   ><slot></slot></button>
 </template>
 

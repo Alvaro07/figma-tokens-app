@@ -1,6 +1,6 @@
 <template>
   <input
-    class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-4 px-6 block appearance-none leading-normal border-b-4"
+    class="bg-white  focus:shadow-outline border border-gray-300 rounded-lg py-4 px-6 block appearance-none leading-normal border-b-4"
     :class="extraClass"
     type="text"
     :placeholder="placeholder || 'Type'"
@@ -36,6 +36,9 @@ export default {
     },
     onInputKeyUp (e) {
       if (this.onKeyUp !== null) this.$emit('onKeyUp', e.target.value)
+    },
+    clear () {
+      this.$refs.field.value = null
     }
   }
 }

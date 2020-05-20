@@ -10,8 +10,8 @@
         </div>
 
         <div class="flex justify-center mb-4">
-          <input-text v-model="tokenName" extra-class="mr-4 " placeholder="Token name" />
-          <custom-select :options="typeOptions" v-model="tokenType" />
+          <input-text v-model="tokenName" extra-class="mr-4 " placeholder="Token name" ref="addInput" />
+          <custom-select :options="typeOptions" v-model="tokenType" class="addSelect" />
 
           <div class="ml-4 flex items-center">
             <custom-button
@@ -28,20 +28,21 @@
         </div>
       </form>
 
-      <p v-if="loading">Loading...</p>
-
       <div v-if="errorMessage">
         <p
           class="text-red-700 py-3 px-32 text-center bg-red-200 border-red-700 border rounded-lg"
         >{{ errorMessage }}</p>
       </div>
 
-      <ul v-if="tokensSearch">
+      <ul v-if="tokensSearch" class="flex items-center justify-center">
         <li
+          class="bg-gray-600 text-white rounded-lg px-4 py-1 ml-4 first:ml-0"
           v-for="(token, i) in tokensSearch"
           :key="token.name + i"
-        >{{ `${token.name} - ${token.type}`}}</li>
+        >{{ `token: ${token.name} (${token.type})`}}</li>
       </ul>
+
+      <p v-if="loading">Loading...</p>
 
       <div v-if="tokensData" class="bg-white p-6 border-b-4 border-gray-400 border rounded-lg">
         <vue-json-pretty :showLine="false" :showDoubleQuotes="false" :deep="1" :data="tokensData"></vue-json-pretty>
@@ -105,10 +106,13 @@ export default {
         }
 
         this.loading = false
+        this.tokensSearch = []
       })
     },
     addToken () {
       this.tokensSearch.push({ name: this.tokenName, type: this.typeOptions[this.tokenType] })
+      this.tokenName = ''
+      this.tokenType = 0
     }
   },
   computed: {
