@@ -11,9 +11,10 @@ const fetch = require('node-fetch')
  */
 
 class FigmaTokens {
-  constructor (apiToken, idFile) {
+  constructor (apiToken, idFile, config) {
     this.apiToken = apiToken
     this.idFile = idFile
+    this.config = config
     this.tokens = {}
     this.figmaTree = {}
   }
@@ -32,9 +33,6 @@ class FigmaTokens {
       }
     })
     const figmaTreeStructure = await result.json()
-    if (figmaTreeStructure.status === 403) {
-      throw new Error(figmaTreeStructure.error)
-    }
     return figmaTreeStructure
   }
 
@@ -44,11 +42,36 @@ class FigmaTokens {
    */
 
   initialize () {
-    this.setToken('color', this.createColor)
-    this.setToken('color-light', this.createColor)
-    this.setToken('color-dark', this.createColor)
-    this.setToken('text', this.createFont)
-    this.setToken('space', this.createSpace)
+    this.config.forEach(token => {
+      switch (token.type) {
+        case 'color':
+          this.setToken(token.name, this.createColor)
+          break
+
+        case 'typography':
+          this.setToken(token.name, this.createFont)
+          break
+
+        case 'space':
+          this.setToken(token.name, this.createSpace)
+          break
+
+        case 'breakpoint':
+          this.setToken(token.name, this.createBreakpoint)
+          break
+
+        case 'radius':
+          this.setToken(token.name, this.createRadius)
+          break
+
+        case 'opacity':
+          this.setToken(token.name, this.createOpacity)
+          break
+
+        default:
+          break
+      }
+    })
   }
 
   /**
@@ -60,12 +83,12 @@ class FigmaTokens {
   getTokens () {
     return new Promise((resolve, reject) => {
       this.initFigmaObjTree().then(data => {
+        // console.log(data)
         this.figmaTree = data.document.children[0].children
         this.initialize(data)
+        // console.log(this.tokens)
         resolve({ token: this.tokens })
-      }).catch(error => {
-        reject(error)
-      })
+      }).catch(error => reject(error))
     })
   }
 
