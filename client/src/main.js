@@ -4,8 +4,16 @@ import router from './router'
 import store from './store'
 import VuePrism from 'vue-prism'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStroopwafel, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import 'prismjs/themes/prism.css'
 import '@/assets/scss/index.scss'
+
+library.add(faStroopwafel, faTimesCircle)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(VuePrism)
 Vue.config.productionTip = false
