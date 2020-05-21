@@ -7,15 +7,12 @@ const FigmaTokens = require('./src/js/figma-tokens')
 
 app.use(bodyParser.json())
 app.use(cors())
-app.use(express.urlencoded({ extended: true }))
 
-// app.get('/tokens', (req, res) => {
-//   console.log('get', req.body)
-// })
+app.get('/tokens', (req, res) => {
+  console.log('get', req.body)
+})
 
 app.post('/tokens', (req, res) => {
-  res.json({ msg: 'This is CORS-enabled for all origins!' })
-
   const { authToken, idFile, config } = req.body
   const figmaStyles = new FigmaTokens(authToken, idFile, config)
 
