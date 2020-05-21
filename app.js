@@ -1,24 +1,21 @@
 // server/server.js
 const express = require('express')
 const bodyParser = require('body-parser')
+var path = require('path')
 const cors = require('cors')
 const app = express()
-
 const FigmaTokens = require('./src/js/figma-tokens')
-
-var allowCrossDomain = function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-}
 
 app.use(bodyParser.json())
 app.use(cors())
-app.use(allowCrossDomain)
+app.use(express.urlencoded({ extended: true }))
 
-app.post('/test', (req, res) => {
-  console.log(req.body)
-  res.send({ type: 'error', message: 'message' })
+// app.get('/tokens', (req, res) => {
+//   console.log('get', req.body)
+// })
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + 'src/index.html'))
 })
 
 app.post('/tokens', (req, res) => {
