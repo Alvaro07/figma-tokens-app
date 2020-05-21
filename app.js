@@ -1,21 +1,23 @@
 // server/server.js
 const express = require('express')
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const cors = require('cors')
-const app = express()
 const FigmaTokens = require('./src/js/figma-tokens')
 
-app.use(bodyParser.json())
-app.use(cors())
-app.use(express.urlencoded({ extended: true }))
+// app.use(bodyParser.json())
+// app.use(cors())
+// app.use(express.urlencoded({ extended: true }))
+const app = express()
 
-// app.get('/tokens', (req, res) => {
-//   console.log('get', req.body)
-// })
+app
+  .use(express.static(__dirname + '/public'))
+  .use(cors())
+
+app.get('/public', (req, res) => {
+  console.log('get')
+})
 
 app.post('/tokens', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-
   const { authToken, idFile, config } = req.body
   const figmaStyles = new FigmaTokens(authToken, idFile, config)
 
