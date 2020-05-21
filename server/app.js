@@ -14,6 +14,8 @@ app.use(express.urlencoded({ extended: true }))
 // })
 
 app.post('/tokens', (req, res) => {
+  res.json({ msg: 'This is CORS-enabled for all origins!' })
+
   const { authToken, idFile, config } = req.body
   const figmaStyles = new FigmaTokens(authToken, idFile, config)
 
