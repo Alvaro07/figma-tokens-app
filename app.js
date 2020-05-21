@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 var path = require('path')
 const cors = require('cors')
 const app = express()
-// const FigmaTokens = require('./src/js/figma-tokens')
+const FigmaTokens = require('./src/js/figma-tokens')
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -24,7 +24,6 @@ app.post('/tokens', (req, res) => {
   const figmaStyles = new FigmaTokens(authToken, idFile, config)
 
   res.send(figmaStyles)
-
   // figmaStyles.getTokens().then(data => {
   //   const finalTokens = {}
   //   Object.entries(data.token).forEach(e => Object.assign(finalTokens, { [e[0]]: e[1] }))
