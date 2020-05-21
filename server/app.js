@@ -8,8 +8,9 @@ const FigmaTokens = require('./src/js/figma-tokens')
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/tokens', (req, res) => {
-  console.log('get', req.body)
+app.post('/test', (req, res) => {
+  console.log(req.body)
+  res.send({ type: 'error', message: 'message' })
 })
 
 app.post('/tokens', (req, res) => {
