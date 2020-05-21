@@ -10,12 +10,13 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 
-// app.get('/tokens', (req, res) => {
-//   console.log('get', req.body)
-// })
+app.post('/test', (req, res) => {
+  console.log('get', req.body)
+  res.send({ type: 'test', message: 'test' })
+})
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/src/index.html'))
+  res.sendFile(path.join(`${__dirname}/src/index.html`))
 })
 
 app.post('/tokens', (req, res) => {
@@ -32,4 +33,4 @@ app.post('/tokens', (req, res) => {
 })
 
 // listen on the port
-app.listen(process.env.PORT || 8000)
+app.listen(process.env.PORT || 8888)
