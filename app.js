@@ -7,7 +7,7 @@ const FigmaTokens = require('./src/js/figma-tokens')
 
 app.use(bodyParser.json())
 app.use(cors())
-// app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 
 app.get('/tokens', (req, res) => {
   console.log('get', req.body)
@@ -26,6 +26,5 @@ app.post('/tokens', (req, res) => {
   })
 })
 
-console.log(FigmaTokens)
 // listen on the port
 app.listen(process.env.PORT || 8080)
