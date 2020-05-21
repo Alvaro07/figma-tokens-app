@@ -19,19 +19,17 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(`${__dirname}/src/index.html`))
 })
 
-app.post('/tokens', (req, res) => {
-  const { authToken, idFile, config } = req.body
-  const figmaStyles = new FigmaTokens(authToken, idFile, config)
-
-  res.send(figmaStyles)
-  // figmaStyles.getTokens().then(data => {
-  //   const finalTokens = {}
-  //   Object.entries(data.token).forEach(e => Object.assign(finalTokens, { [e[0]]: e[1] }))
-  //   res.send(finalTokens)
-  // }).catch(() => {
-  //   res.send({ type: 'error', message: 'invalid data' })
-  // })
-})
+// app.post('/tokens', (req, res) => {
+//   const { authToken, idFile, config } = req.body
+//   const figmaStyles = new FigmaTokens(authToken, idFile, config)
+//   figmaStyles.getTokens().then(data => {
+//     const finalTokens = {}
+//     Object.entries(data.token).forEach(e => Object.assign(finalTokens, { [e[0]]: e[1] }))
+//     res.send(finalTokens)
+//   }).catch(() => {
+//     res.send({ type: 'error', message: 'invalid data' })
+//   })
+// })
 
 // listen on the port
 app.listen(process.env.PORT || 8888)
