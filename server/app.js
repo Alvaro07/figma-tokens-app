@@ -1,21 +1,17 @@
 // server/server.js
 const express = require('express')
-// const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const cors = require('cors')
+const app = express()
 const FigmaTokens = require('./src/js/figma-tokens')
 
-// app.use(bodyParser.json())
-// app.use(cors())
-// app.use(express.urlencoded({ extended: true }))
-const app = express()
+app.use(bodyParser.json())
+app.use(cors())
+app.use(express.urlencoded({ extended: true }))
 
-app
-  .use(express.static(__dirname + '/public'))
-  .use(cors())
-
-app.get('/public', (req, res) => {
-  console.log('get')
-})
+// app.get('/tokens', (req, res) => {
+//   console.log('get', req.body)
+// })
 
 app.post('/tokens', (req, res) => {
   const { authToken, idFile, config } = req.body
