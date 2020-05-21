@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 // })
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + 'src/index.html'))
+  res.sendFile(path.join(__dirname + '/src/index.html'))
 })
 
 app.post('/tokens', (req, res) => {
