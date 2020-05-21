@@ -29,8 +29,7 @@ class FigmaTokens {
     const result = await fetch(`https://api.figma.com/v1/files/${this.idFile}`, {
       method: 'GET',
       headers: {
-        'X-Figma-Token': this.apiToken,
-        'Access-Control-Allow-Origin': ' *'
+        'X-Figma-Token': this.apiToken
       }
     })
     const figmaTreeStructure = await result.json()
