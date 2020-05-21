@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "git add client/dist && git commit -m 'deploy' && git subtree push --prefix client origin deploy-client"
+    "deploy": "git add client/dist && git commit -m 'deploy' && git subtree push --prefix client/dist origin gh-pages"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
