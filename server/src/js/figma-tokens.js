@@ -30,7 +30,9 @@ class FigmaTokens {
       method: 'GET',
       headers: {
         'X-Figma-Token': this.apiToken,
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': 'http://localhost:8081',
+        'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
       }
     })
     const figmaTreeStructure = await result.json()
