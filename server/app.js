@@ -9,17 +9,23 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
+
 app.get('/tokens', (req, res) => {
   console.log('get', req.body)
 })
 
 app.post('/tokens', (req, res) => {
-  const figmaStyles = new FigmaTokens(req.body.authToken, req.body.idFile, req.body.config)
-  const finalTokens = {}
+  const { authToken, idFile, config } = req.body
+  const figmaStyles = new FigmaTokens(authToken, idFile, config)
+
   figmaStyles.getTokens().then(data => {
-    Object.entries(data.token).forEach(e => {
-      Object.assign(finalTokens, { [e[0]]: e[1] })
-    })
+    const finalTokens = {}
+    Object.entries(data.token).forEach(e => Object.assign(finalTokens, { [e[0]]: e[1] }))
     res.send(finalTokens)
   }).catch(() => {
     res.send({ type: 'error', message: 'invalid data' })
@@ -27,4 +33,4 @@ app.post('/tokens', (req, res) => {
 })
 
 // listen on the port
-app.listen(process.env.PORT || 8080)
+app.listen(process.env.PORT || 8000)
