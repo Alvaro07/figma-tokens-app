@@ -5,13 +5,13 @@ import store from './store'
 import VuePrism from 'vue-prism'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faStroopwafel, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import 'prismjs/themes/prism.css'
 import '@/assets/scss/index.scss'
 
-library.add(faStroopwafel, faTimesCircle)
+library.add(faSpinner, faTimesCircle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

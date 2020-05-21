@@ -17,9 +17,9 @@
         >{{ errorMessage }}</p>
       </div>
 
-      <ul v-if="tokensSearch" class="flex items-center justify-center">
+      <ul v-if="tokensSearch" class="flex items-center justify-center flex-wrap">
         <li
-          class="relative bg-gray-600 text-white rounded-lg px-4 py-1 ml-4 first:ml-0 flex items-center"
+          class="relative bg-gray-600 text-white rounded-lg px-4 py-1 ml-4 mb-4 first:ml-0 flex items-center"
           v-for="(token, i) in tokensSearch"
           :key="token.name + i"
         >
@@ -86,6 +86,7 @@ export default {
     },
     addToken (token) {
       this.tokensSearch.push(token)
+      this.errorMessage = null
     },
     deleteToken (token) {
       this.tokensSearch = this.tokensSearch.filter(e => e.name !== token)

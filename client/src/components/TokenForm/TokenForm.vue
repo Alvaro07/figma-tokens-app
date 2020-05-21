@@ -10,7 +10,7 @@
       <custom-select :options="typeOptions" v-model="tokenType" class="addSelect" />
 
       <div class="ml-4 flex items-center">
-        <custom-button size="small" type="green" @click="handleAdd" :disabled="isDisabledAdd">Add</custom-button>
+        <custom-button size="small" type="green" @click="handleAdd" :disabled="isDisabledAdd">Add token</custom-button>
       </div>
 
       <div class="ml-8 pl-8 flex items-center border-l">

@@ -1,6 +1,6 @@
 <template>
   <div class="text-center py-12 text-green-400">
-    <font-awesome-icon icon="stroopwafel" spin size="4x"  />
+    <font-awesome-icon icon="spinner" spin size="4x"  />
   </div>
 </template>
 
