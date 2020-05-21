@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: 'figma-tokens-app/'
+  publicPath: '/figma-tokens-app/'
 }
