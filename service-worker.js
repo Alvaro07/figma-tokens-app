@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/figma-tokens-app/precache-manifest.55e9ada2935569f7f6c8d762129e60ac.js"
+  "/precache-manifest.a64f4df3682cf42182338195449a1580.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "client"});
