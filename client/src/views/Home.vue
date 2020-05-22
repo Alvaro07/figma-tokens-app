@@ -96,7 +96,6 @@ export default {
 
       EventTokens.getTokens(formData).then(data => {
         if (data.type === 'error') {
-          console.log(data)
           this.errorMessage = data.message
         } else {
           this.errorMessage = null
