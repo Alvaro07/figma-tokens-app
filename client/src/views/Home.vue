@@ -33,7 +33,18 @@
       </ul>
 
       <Loading v-if="loading" />
-      <TokensTree v-if="tokensData" :data="tokensData" @onClose="tokensData = null" />
+      <TokensTree v-if="tokensData" :data="tokensData" @onClose="resetTokens" />
+      <div v-if="tokensData" class="py-8 justify-center flex items-center">
+        <custom-button @click="handleStyle">Get styles</custom-button>
+      </div>
+
+      <div v-if="tokenStyles.length">
+        <ul>
+          <li class="bg-white p-6 border-b-4 border-gray-400 border rounded-lg mb-8" v-for="(token, i) in tokenStyles" :key="`tokenStyle${i}`">
+           {{token }}
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 </template>
@@ -43,20 +54,24 @@ import EventTokens from '@/services/EventTokens.js'
 import TokenForm from '@/components/TokenForm/TokenForm'
 import TokensTree from '@/components/TokensTree/TokensTree'
 import Loading from '@/components/Loading/Loading'
+import Button from '@/components/Button/Button'
+import { codeTransform } from '../utils/utils'
 
 export default {
   name: 'Home',
   components: {
     TokenForm,
     TokensTree,
-    Loading
+    Loading,
+    CustomButton: Button
   },
   data () {
     return {
       errorMessage: null,
       tokensData: null,
       loading: false,
-      tokensSearch: []
+      tokensSearch: [],
+      tokenStyles: []
     }
   },
   methods: {
@@ -90,6 +105,20 @@ export default {
     },
     deleteToken (token) {
       this.tokensSearch = this.tokensSearch.filter(e => e.name !== token)
+    },
+    resetTokens () {
+      this.tokensData = null
+      this.tokenStyles = null
+    },
+    handleStyle () {
+      EventTokens.getStyles().then(data => {
+        data.forEach(file => {
+          this.tokenStyles.push(codeTransform(file.toString()))
+        })
+
+        // const dataVar = data.split('--').filter(e => e.includes(';')).map(e => e.split(';')[0]).map(e => `--${e}`)
+        // this.tokenStyles.push(data)
+      })
     }
   }
 }
