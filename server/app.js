@@ -10,6 +10,8 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.post('/tokens', (req, res) => {
+  deletePropFiles()
+
   const { authToken, idFile, config } = req.body
   const figmaStyles = new FigmaTokens(authToken, idFile, config)
   figmaStyles.getTokens().then(data => {
@@ -26,13 +28,28 @@ app.post('/tokens', (req, res) => {
   })
 })
 
-app.post('/style-dictionary', (req, res) => {
-  const tokensPropierties = fs.readdirSync(path.resolve(__dirname, './propierties'))
-  const tokensFiles = tokensPropierties.filter(e => e.includes('.json'))
+app.post('/style-dictionary', async (req, res) => {
+  const tokensFiles = fs.readdirSync(path.resolve(__dirname, './propierties')).filter(e => e.includes('.json'))
+  await generateConfig(tokensFiles)
+  const finalStyles = await readFiles(fs.readdirSync(path.resolve(__dirname, './src/assets/scss/tokens/')))
+  res.send(finalStyles)
+})
 
+function deletePropFiles () {
+  const tokensFiles = fs.readdirSync(path.resolve(__dirname, './propierties')).filter(e => e.includes('.json'))
+  tokensFiles.forEach((file, i) => {
+    fs.unlinkSync(path.resolve(__dirname, `./propierties/${file}`))
+  })
 
-  return new Promise ((resolve) => {
-    tokensFiles.filter(e => e.includes('.json')).forEach(token => {
+  const scssFiles = fs.readdirSync(path.resolve(__dirname, './src/assets/scss/tokens'))
+  scssFiles.forEach((file, i) => {
+    fs.unlinkSync(path.resolve(__dirname, `./src/assets/scss/tokens/${file}`))
+  })
+}
+
+function generateConfig (tokenFiles) {
+  return new Promise((resolve, reject) => {
+    tokenFiles.filter(e => e.includes('.json')).forEach(token => {
       const fileName = token.split('.')[0]
       const StyleDictionary = require('style-dictionary').extend({
         source: [`propierties/${fileName}.json`],
@@ -61,34 +78,29 @@ app.post('/style-dictionary', (req, res) => {
         }
       })
       StyleDictionary.buildAllPlatforms()
+      resolve()
     })
-    resolve()
-  }).then(() => {
-    const styleFiles = fs.readdirSync(path.resolve(__dirname, './src/assets/scss/tokens/'))
+  })
+}
 
+function readFiles (styleFiles) {
+  return new Promise((resolve, reject) => {
     const styles = []
     styleFiles.forEach(fileName => {
-      const filePath = path.resolve(__dirname, `./src/assets/scss/tokens/_color.scss`)
+      const filePath = path.resolve(__dirname, `./src/assets/scss/tokens/${fileName}`)
 
       fs.readFile(filePath, 'utf8', function (err, data) {
         if (err) return console.log(err)
 
         fs.writeFile(filePath, data, 'utf8', function (err) {
           if (err) return console.log(err)
-          res.send(data.toString())
+          styles.push(data.toString())
+          styles.length === styleFiles.length && resolve(styles)
         })
-        
       })
     })
   })
-
-  // const filePath = path.resolve(__dirname, 'src/assets/scss/tokens/_color.scss')
-  // console.log(filePath)
-  // fs.readFile(filePath, 'utf8', function (err, data) {
-  //   if (err) return console.log(err)
-  //   res.send(data.toString())
-  // })
-})
+}
 
 // listen on the port
 app.listen(process.env.PORT || 8888)
