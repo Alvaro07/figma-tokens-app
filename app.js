@@ -10,7 +10,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.post('/tokens', (req, res) => {
-  // deletePropFiles()
+  deletePropFiles()
 
   const { authToken, idFile, config } = req.body
   const figmaStyles = new FigmaTokens(authToken, idFile, config)
@@ -35,19 +35,23 @@ app.post('/style-dictionary', async (req, res) => {
   res.send(finalStyles)
 })
 
-// function deletePropFiles () {
-//   const tokensFiles = fs.readdirSync(path.resolve(__dirname, './propierties')).filter(e => e.includes('.json'))
-//   tokensFiles.forEach((file, i) => {
-//     fs.unlinkSync(path.resolve(__dirname, `./propierties/${file}`))
-//   })
+function deletePropFiles () {
+  if (fs.existsSync(path.resolve(__dirname, './propierties'))) {
+    const tokensFiles = fs.readdirSync(path.resolve(__dirname, './propierties')).filter(e => e.includes('.json'))
+    tokensFiles.forEach((file, i) => {
+      fs.unlinkSync(path.resolve(__dirname, `./propierties/${file}`))
+    })
+  }
 
-//   const scssFiles = fs.readdirSync(path.resolve(__dirname, './src/assets/scss/tokens'))
-//   scssFiles.forEach((file, i) => {
-//     fs.unlinkSync(path.resolve(__dirname, `./src/assets/scss/tokens/${file}`))
-//   })
-// }
+  if (fs.existsSync(path.resolve(__dirname, './src/assets/scss/tokens'))) {
+    const scssFiles = fs.readdirSync(path.resolve(__dirname, './src/assets/scss/tokens'))
+    scssFiles.forEach((file, i) => {
+      fs.unlinkSync(path.resolve(__dirname, `./src/assets/scss/tokens/${file}`))
+    })
+  }
+}
 
-function generateConfig (tokenFiles) {
+function generateConfig(tokenFiles) {
   return new Promise((resolve, reject) => {
     tokenFiles.filter(e => e.includes('.json')).forEach(token => {
       const fileName = token.split('.')[0]
@@ -83,7 +87,7 @@ function generateConfig (tokenFiles) {
   })
 }
 
-function readFiles (styleFiles) {
+function readFiles(styleFiles) {
   return new Promise((resolve, reject) => {
     const styles = []
     styleFiles.forEach(fileName => {
