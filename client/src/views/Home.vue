@@ -35,7 +35,7 @@
       <Loading v-if="loading" />
       <TokensTree v-if="tokensData" :data="tokensData" @onClose="resetTokens" />
       <div v-if="tokensData" class="py-8 justify-center flex items-center">
-        <custom-button @click="handleStyle">Get styles</custom-button>
+        <custom-button @click="handleStyle" :disabled="tokenStyles.length  ? true : false">Get styles</custom-button>
       </div>
 
       <div v-if="tokenStyles.length">
@@ -108,16 +108,13 @@ export default {
     },
     resetTokens () {
       this.tokensData = null
-      this.tokenStyles = null
+      this.tokenStyles = []
     },
     handleStyle () {
       EventTokens.getStyles().then(data => {
         data.forEach(file => {
           this.tokenStyles.push(codeTransform(file.toString()))
         })
-
-        // const dataVar = data.split('--').filter(e => e.includes(';')).map(e => e.split(';')[0]).map(e => `--${e}`)
-        // this.tokenStyles.push(data)
       })
     }
   }

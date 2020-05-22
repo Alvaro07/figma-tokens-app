@@ -51,7 +51,7 @@ function deletePropFiles () {
   }
 }
 
-function generateConfig(tokenFiles) {
+function generateConfig (tokenFiles) {
   return new Promise((resolve, reject) => {
     tokenFiles.filter(e => e.includes('.json')).forEach(token => {
       const fileName = token.split('.')[0]
@@ -87,7 +87,7 @@ function generateConfig(tokenFiles) {
   })
 }
 
-function readFiles(styleFiles) {
+function readFiles (styleFiles) {
   return new Promise((resolve, reject) => {
     const styles = []
     styleFiles.forEach(fileName => {
