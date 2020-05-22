@@ -32,7 +32,10 @@ app.post('/style-dictionary', async (req, res) => {
   const tokensFiles = fs.readdirSync(path.resolve(__dirname, './propierties')).filter(e => e.includes('.json'))
   await generateConfig(tokensFiles)
   const finalStyles = await readFiles(fs.readdirSync(path.resolve(__dirname, './src/assets/scss/tokens/')))
-  res.send(finalStyles)
+
+  res.send(finalStyles.map((e, i) => {
+    return { name: tokensFiles[i].split('.')[0], code: e }
+  }))
 })
 
 function deletePropFiles () {
