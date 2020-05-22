@@ -2,11 +2,11 @@ import axios from 'axios'
 
 export default {
   async getTokens (formData) {
-    const res = await axios.post('http://localhost:8888/tokens', formData)
+    const res = await axios.post('https://figma-tokens-app-server.herokuapp.com/tokens', formData)
     return res.data
   },
   async getStyles (formData) {
-    const res = await axios.post('http://localhost:8888/style-dictionary', formData)
+    const res = await axios.post('https://figma-tokens-app-server.herokuapp.com/style-dictionary', formData)
     return res.data
   }
 }
