@@ -1,6 +1,6 @@
 export const codeTransform = function (file) {
-  if (file.includes(':root')) {
-    return `:root${file.split(':root')[1]}`
+  if (file.code.includes(':root')) {
+    return { ...file, code: `:root${file.code.toString().split(':root')[1].trim()}` }
   } else {
     return file
   }

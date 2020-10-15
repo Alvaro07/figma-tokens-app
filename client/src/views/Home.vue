@@ -1,5 +1,5 @@
 <template>
-  <section class="flex items-center justify-center w-full">
+  <section class="flex w-full flex-col items-center">
     <div class="w-full max-w-screen-md">
       <h1 class="p-12 shadow-font text-7xl tracking-tight text-center">Get your Figma tokens</h1>
 
@@ -34,14 +34,23 @@
 
       <Loading v-if="loading" />
       <TokensTree v-if="tokensData" :data="tokensData" @onClose="resetTokens" />
-      <div v-if="tokensData" class="py-8 justify-center flex items-center">
-        <custom-button @click="handleStyle">Get styles</custom-button>
+      <div v-if="tokensData && !tokenStyles.length" class="py-8 justify-center flex items-center">
+        <custom-button
+          @click="handleStyle"
+        >Get styles</custom-button>
       </div>
 
+    </div>
+    <div class="w-full max-w-screen-lg px-8 mt-8">
       <div v-if="tokenStyles.length">
-        <ul>
-          <li class="bg-white p-6 border-b-4 border-gray-400 border rounded-lg mb-8" v-for="(token, i) in tokenStyles" :key="`tokenStyle${i}`">
-           {{token }}
+        <ul class="grid grid-code gap-8">
+          <li
+            class="bg-white p-8 border-b-4 border-gray-400 border rounded-lg h-full flex-col justify-center"
+            v-for="(token, i) in tokenStyles"
+            :key="`tokenStyle${i}`"
+          >
+            <p class="text-2xl mb-4">{{ token.name }}</p>
+            <pre class="language-css rounded-lg"><code>{{token.code }}</code></pre>
           </li>
         </ul>
       </div>
@@ -108,18 +117,25 @@ export default {
     },
     resetTokens () {
       this.tokensData = null
-      this.tokenStyles = null
+      this.tokenStyles = []
     },
     handleStyle () {
       EventTokens.getStyles().then(data => {
         data.forEach(file => {
-          this.tokenStyles.push(codeTransform(file.toString()))
+          this.tokenStyles.push(codeTransform(file))
         })
-
-        // const dataVar = data.split('--').filter(e => e.includes(';')).map(e => e.split(';')[0]).map(e => `--${e}`)
-        // this.tokenStyles.push(data)
       })
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+pre[class*="language-"] {
+  margin: 0;
+}
+
+.grid-code {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+</style>
