@@ -1,5 +1,5 @@
 <template>
-  <form class="mb-10" :class="{ 'opacity-50 pointer-events-none': disabled}">
+  <form class="mb-10" :class="{ 'opacity-50 pointer-events-none': disabled}" >
     <div class="flex justify-center mb-8">
       <input-text ref="authInput" v-model="authToken" extra-class="flex-auto mr-4" placeholder="Auth token" />
       <input-text ref="idFileInput" v-model="idFile" extra-class="flex-1" placeholder="Id File" />
@@ -51,11 +51,14 @@ export default {
       tokenType: 0,
       typeOptions: [
         'color',
+        'text',
         'typography',
         'space',
         'radius',
         'breakpoint',
-        'opacity'
+        'opacity',
+        'border',
+        'shadow'
       ]
     }
   },

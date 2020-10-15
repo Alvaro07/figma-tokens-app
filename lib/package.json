@@ -1,0 +1,23 @@
+{
+  "name": "figma-tokens",
+  "version": "1.0.0",
+  "scripts": {
+    "gen-tokens": "sh ./build-tokens.sh"
+  },
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
+  "devDependencies": {
+    "node-fetch": "^2.6.0",
+    "rimraf": "^2.6.2",
+    "style-dictionary": "^2.9.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

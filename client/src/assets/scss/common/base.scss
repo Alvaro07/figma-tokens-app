@@ -5,16 +5,18 @@ html {
 
 body {
   font-size: 1.4rem;
-  font-family: 'Jost', sans-serif;
+  font-family: "Jost", sans-serif;
   font-weight: 500;
   height: 100%;
 }
 
 .shadow-font {
-  font-family: 'Shadows Into Light', cursive;
+  font-family: "Shadows Into Light", cursive;
 }
 
-input, button, select {
-  font-family: 'Jost', sans-serif;
+input,
+button,
+select {
+  font-family: "Jost", sans-serif;
   -webkit-appearance: none;
 }
