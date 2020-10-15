@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bfaa33237f667ce7db16",
-    "url": "/figma-tokens-app/css/app.d1d536eb.css"
+    "revision": "a0107a7b96bcdb9ce55a",
+    "url": "/figma-tokens-app/css/app.ceb2bf80.css"
   },
   {
     "revision": "bf4af1b085d2ba6c95af",
     "url": "/figma-tokens-app/css/chunk-vendors.055e504d.css"
   },
   {
-    "revision": "a40f3525cec4925bd700775bd16d6fc0",
+    "revision": "db8e8b1d6f30b4f5a8ccd0a1342cb66c",
     "url": "/figma-tokens-app/index.html"
   },
   {
-    "revision": "bfaa33237f667ce7db16",
-    "url": "/figma-tokens-app/js/app.e3ccb77d.js"
+    "revision": "a0107a7b96bcdb9ce55a",
+    "url": "/figma-tokens-app/js/app.22e13fbd.js"
   },
   {
     "revision": "bf4af1b085d2ba6c95af",
